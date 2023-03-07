@@ -1,8 +1,13 @@
 class RegistrationPage {
     
     openRegistrationPage(){
-        cy.log('Open registration page')
+        cy.log('Open registration page');
         cy.visit('/#/register');
+        this.getButtonPopupTrue().click();
+    }
+
+    getButtonPopupTrue(){
+        return cy.get('[mattooltipposition="above"]');
     }
     
     getEmail(){
@@ -18,9 +23,12 @@ class RegistrationPage {
     }
 
     getSecurityQuestionDropdown(){
-        return cy.get('#mat-select-value-3');
+        return cy.get('#mat-select-0');
     }
 
+    getSecurityQuestion(){
+        return cy.get('#mat-option-1');
+    }
     getSecurityAnswer(){
         return cy.get('#securityAnswerControl');
     }
@@ -35,9 +43,16 @@ class RegistrationPage {
         this.getEmail().type(user.email).should('have.value', user.email);
         this.getPassword().type(user.password).should('have.value', user.password);
         this.getRepeatPassword().type(user.password).should('have.value', user.password);
-        this.getSecurityQuestionDropdown().select(user.securityQuestion).should('have.value','user.securityQuestion');
+        this.getSecurityQuestionDropdown().click();
+        this.getSecurityQuestion().click();
         this.getSecurityAnswer().type(user.securityAnswer).should('have.value', user.securityAnswer);
-        this.submitRegistrationform().click();
+        this.getSubmitButton().click();
+    }
+
+    verifyRedirectToLoginPage(){
+        cy.location().should((loc) => {
+            expect(loc.href).to.eq('https://juice-shop-sanitarskyi.herokuapp.com/#/login');
+          })
     }
    
 }
