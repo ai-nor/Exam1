@@ -1,7 +1,15 @@
 {
+  "name": "Tetiana",
   "email": "nor@test.com",
   "password": "Password123",
   "securityQuestion": "Name of your favorite pet?",
-  "securityAnswer": "Masyanya"
+  "securityAnswer": "Masyanya",
+  "country": "Ukraine",
+  "mobNumber": "123456789",
+  "zipCode": "123456",
+  "address": "some address",
+  "city": "Kyiv",
+  "state": "Kyivs`kyi region",
+  "cardNumber": "2222555544448888"
 }
 

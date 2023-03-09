@@ -3,13 +3,18 @@ class AuthorizationPage {
     openAuthorizationPage(){
         cy.log('Open authorization page')
         cy.visit('#/login');
-        this.getButtonPopupTrue().click();
+        this.getButtonPopupWelcomeFalse().click();
+        this.getButtonPopupCookieTrue().click();
     }
 
-    getButtonPopupTrue(){
-        return cy.get('[mattooltipposition="above"]');
+    getButtonPopupWelcomeFalse(){
+        return cy.get('[aria-label="Close Welcome Banner"]');
     }
     
+    getButtonPopupCookieTrue(){
+        return cy.get('[aria-label="dismiss cookie message"]');
+    }
+
     getEmail(){
         return cy.get('#email');
     }
@@ -25,6 +30,10 @@ class AuthorizationPage {
     getSubmitButton(){
         return cy.get('#loginButton');
     }
+
+    getErrorMessage(){
+        return cy.get('.error');
+    }
     
     openForgotPasswordPage(){
         cy.log('Open forgot password page')
@@ -36,6 +45,9 @@ class AuthorizationPage {
         cy.log('**Заповнення форми авторизації**');
         this.getEmail().type(user.email).should('have.value', user.email);
         this.getPassword().type(user.password).should('have.value', user.password);
+    }
+
+    clickLoginButton(){
         this.getSubmitButton().click();
     }
 
@@ -45,8 +57,6 @@ class AuthorizationPage {
           })
     }
 
-    
-   
 }
 
 export default new AuthorizationPage();

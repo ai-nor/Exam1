@@ -1,4 +1,6 @@
-class AccountName {
+
+
+class AccountPage {
     
     openSearchPage(){
         cy.log('Open search page');
@@ -10,30 +12,44 @@ class AccountName {
         return cy.get('mat-dialog-container [mattooltipposition="above"]');
     }
     
+    getAccountMenu(){
+        return cy.get('#navbarAccount');
+    }
     
-    
-    // getSubmitButton(){
-    //     return cy.get('#registerButton');
-    // }
-    
+    getGotoUserProfileMenu(){
+        return cy.get('[aria-label="Go to user profile"]');
+    }
 
-    // submitRegistrationform(user) {
-    //     cy.log('**Заповнення форми**');
-    //     this.getEmail().type(user.email).should('have.value', user.email);
-    //     this.getPassword().type(user.password).should('have.value', user.password);
-    //     this.getRepeatPassword().type(user.password).should('have.value', user.password);
-    //     this.getSecurityQuestionDropdown().click();
-    //     this.getSecurityQuestion().click();
-    //     this.getSecurityAnswer().type(user.securityAnswer).should('have.value', user.securityAnswer);
-    //     this.getSubmitButton().click();
-    // }
+    getPopupAddingProductToBasketConfirmation(){
+        return cy.get('snack-bar-container .mat-simple-snack-bar-content');
+    }
+    
+    getBasketCounter(){
+        return cy.get('.mat-button-wrapper .fa-layers-counter');
+    }
 
-    // verifyRedirectToLoginPage(){
-    //     cy.location().should((loc) => {
-    //         expect(loc.href).to.eq('https://juice-shop-sanitarskyi.herokuapp.com/#/login');
-    //       })
-    // }
+    getBasketMenu(){
+        cy.get('[aria-label="Show the shopping cart"]')
+    }
+
+    
+    checkUserIsAuthorized(user){
+        this.getAccountMenu().click();
+        this.getGotoUserProfileMenu().should('contain',`${user.email}`);
+    }
+   
+    addProductToBasketConfirmation(product) {
+        cy.log('Підтвердження додавання товару у корзину');
+        this.getPopupAddingProductToBasketConfirmation().should('be.visible').and('have.text',`Placed ${product.name} into basket.` );
+        this.getBasketCounter().should('have.text', '1');
+    }
+
+    verifyRedirectToBasketPage(){
+        cy.location().should((loc) => {
+            expect(loc.href).to.eq('https://juice-shop-sanitarskyi.herokuapp.com/#/basket');
+          })
+    }
    
 }
 
-export default new AccountName();
+export default new AccountPage();
