@@ -21,13 +21,13 @@ user.password = faker.internet.password();
 user.securityAnswer = faker.animal.cat();
   
   it('Registration new user with valid data', () => {
-    cy.log('Регістрація юзера');
+    cy.log('Registration new user');
     RegistrationPage.openRegistrationPage();
     RegistrationPage.submitRegistrationform(user);
     RegistrationPage.clickSubmitButton();
     RegistrationPage.verifyRedirectToLoginPage();
  
-    cy.log('Перевірка логіну зареєстрованого юзера');
+    cy.log('Check login registrated user');
     AuthorizationPage.submitAuthorizationForm(user);
     AuthorizationPage.clickLoginButton();
     AccountPage.checkUserIsAuthorized(user);
@@ -39,7 +39,7 @@ user.securityAnswer = faker.animal.cat();
   it('Registration new user with invalid email', () => {
     user.email = faker.internet.domainName();
     
-    cy.log('Спроба регістрації з невалідними даними');
+    cy.log('Registration with invalid data');
     RegistrationPage.openRegistrationPage();
     RegistrationPage.submitRegistrationform(user);
     RegistrationPage.checkErrorForInvalidData();
@@ -49,7 +49,7 @@ user.securityAnswer = faker.animal.cat();
     user.email = faker.internet.email();
     user.password = faker.internet.password(4);
     
-    cy.log('Спроба регістрації з невалідними даними');
+    cy.log('Registration with invalid data');
     RegistrationPage.openRegistrationPage();
     RegistrationPage.submitRegistrationform(user);
     RegistrationPage.checkErrorForInvalidData();
@@ -59,7 +59,7 @@ user.securityAnswer = faker.animal.cat();
     user.email = faker.internet.email();
     user.password = faker.internet.password(41);
     
-    cy.log('Спроба регістрації з невалідними даними');
+    cy.log('Registration with invalid data');
     RegistrationPage.openRegistrationPage();
     RegistrationPage.submitRegistrationform(user);
     RegistrationPage.checkErrorForInvalidData();
@@ -69,7 +69,7 @@ user.securityAnswer = faker.animal.cat();
     user.email = faker.internet.email();
     user.password = faker.internet.password(12);
     
-    cy.log('Спроба регістрації з невалідними даними');
+    cy.log('Registration with invalid data');
     RegistrationPage.openRegistrationPage();
     RegistrationPage.submitRegistrationform(user);
     RegistrationPage.getSecurityAnswer().clear().blur();
@@ -109,36 +109,36 @@ describe('Order product', () => {
     user.email = email;
     user.password = password;
    
-    cy.log('Авторизація в акаунт')
+    cy.log('Authorization into account')
     AuthorizationPage.openAuthorizationPage();
     AuthorizationPage.submitAuthorizationForm(user);
     AuthorizationPage.clickLoginButton();
     AuthorizationPage.verifyRedirectToSearchPage();
     
-    cy.log('Пошук продукту')
+    cy.log('Search for product')
     searchProductByName(product);
 
-    cy.log('Перевірка що продукт додано')
+    cy.log('Check product was added')
     AccountPage.addProductToBasketConfirmation(product);
     
     BasketPage.openBasketPage();
     BasketPage.checkProductInBasket(product);
 
-    cy.log('Замовлення продукту');
+    cy.log('Product order');
     BasketPage.clickCheckoutButton();
 
-    cy.log('Створення нової адреси');
+    cy.log('Add a new address');
     CheckoutPage.getAddAddress().click();
     CheckoutPage.addNewAddress(user);
 
-    cy.log('Вибір адреси і доставки');
+    cy.log('Select address and delivery');
     CheckoutPage.selectAddress();
     CheckoutPage.selectDelivery();
 
-    cy.log('Вибір оплати і створення карти');
+    cy.log('Add and select payment card');
     PaymentsPage.submitAddNewCard(user);
 
-    cy.log('Останній крок оформлення замовлення');
+    cy.log('Last step confirmation of order');
     CheckoutPage.placeTheOrder();
 
   })

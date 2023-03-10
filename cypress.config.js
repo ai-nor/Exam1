@@ -8,4 +8,9 @@ module.exports = defineConfig({
     pageLoadTimeout:60000,
     baseUrl: 'https://juice-shop-sanitarskyi.herokuapp.com',
   },
+  env: {
+    env_userEmail: 'email',
+    env_userPassword: 'password',
+  }
+  
 });
