@@ -6,13 +6,12 @@ import RegistrationPage from '../support/pages/RegistrationPage';
 import AuthorizationPage from '../support/pages/AuthorizationPage';
 import AccountPage from '../support/pages/AccountPage';
 
-let email;
-let password;
-
-describe('Registration new user', () => {
 user.email = faker.internet.email();
 user.password = faker.internet.password();
 user.securityAnswer = faker.animal.cat();
+
+describe('Registration new user', () => {
+
   
   it('Registration new user with valid data', () => {
     cy.log('Registration new user');
@@ -25,14 +24,6 @@ user.securityAnswer = faker.animal.cat();
     AuthorizationPage.submitAuthorizationForm(user);
     AuthorizationPage.clickLoginButton();
     AccountPage.checkUserIsAuthorized(user);
-
-    email = user.email;
-    password = user.password;
-    Cypress.env('env_userEmail', email);  //нове значення для глобальної змінної
-    Cypress.env('env_userPassword', password);
-
-    console.log(Cypress.env('env_userEmail'));
-    console.log(Cypress.env('env_userPassword'));
   })
 
   it('Registration new user with invalid email', () => {

@@ -29,17 +29,6 @@ class FeedbackPage {
         cy.visit('/#/contact');
     }
 
-    fillFeedbackForm(user){
-        this.getUserEmailField().should('have.text', user.email);
-        this.getCommentInput().type('Everyting okey-dockey');
-        this.getRating().type({moveToEnd});
-
-        let captureAnswer = eval(parseFloat(this.getCaptchaValue()));
-        console.log(captureAnswer);
-        this.captureAnswer().type(captureAnswer);
-        this.getSubmitButton().click();
-
-    }
 }
 
 export default new FeedbackPage();

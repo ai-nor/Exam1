@@ -2,15 +2,22 @@
 
 import * as user from '../fixtures/user.json';
 import { faker } from '@faker-js/faker';
+import RegistrationPage from '../support/pages/RegistrationPage';
 import AuthorizationPage from '../support/pages/AuthorizationPage';
 
-user.email = Cypress.env('env_userEmail'); 
-user.password = Cypress.env('env_userPassword');
-
-// user.email = Cypress.env("envUserEmail"); 
-// user.password = Cypress.env("envUserPassword");
+user.email = faker.internet.email();
+user.password = faker.internet.password();
 
 describe('Authorization new user', () => {
+  
+  it('Registration new user with valid data', () => {
+    cy.log('Registration new user');
+    RegistrationPage.openRegistrationPage();
+    RegistrationPage.submitRegistrationform(user);
+    RegistrationPage.clickSubmitButton();
+    RegistrationPage.verifyRedirectToLoginPage();
+
+  })
   
   it('Submit authorization form for user with valid data', () => {
     AuthorizationPage.openAuthorizationPage();
