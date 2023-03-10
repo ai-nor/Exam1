@@ -29,6 +29,10 @@ class FeedbackPage {
         cy.visit('/#/contact');
     }
 
+    getpopupFeedback(){
+        return cy.get('.mat-simple-snack-bar-content');
+    }
+
 }
 
 export default new FeedbackPage();

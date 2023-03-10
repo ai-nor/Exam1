@@ -2,19 +2,13 @@
 
 import RegistrationPage from '../support/pages/RegistrationPage';
 import FeedbackPage from '../support/pages/FeedbackPage';
-import {
-  atan2, chain, derivative, e, evaluate, log, pi, pow, round, sqrt
-} from 'mathjs'
+import {evaluate} from 'mathjs';
 
 
 describe('Fill the feedback form', () => {
   
   it('Fill in the feedback form', () => {
     cy.log('Fill in the feedback form');
-    // AuthorizationPage.openAuthorizationPage();
-    // AuthorizationPage.submitAuthorizationForm(user);
-    // AuthorizationPage.clickLoginButton();
-    // AuthorizationPage.verifyRedirectToSearchPage(user);
     FeedbackPage.openFeedbackPage();
     RegistrationPage.getButtonPopupWelcomeFalse().click();
     RegistrationPage.getButtonPopupCookieTrue().click();
@@ -26,10 +20,11 @@ describe('Fill the feedback form', () => {
       let captureQuestion = $elem.text();
       captureAnswer = evaluate(captureQuestion);
       console.log(captureAnswer);
-      })
     console.log('captcha' + captureAnswer);
     FeedbackPage.getCaptchaAnswerField().type(captureAnswer);
     FeedbackPage.getSubmitButton().click();
+      })
+    FeedbackPage.getpopupFeedback().should('be.visible'); 
 
   })
 
